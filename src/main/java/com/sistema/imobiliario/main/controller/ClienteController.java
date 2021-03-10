@@ -6,6 +6,7 @@ import com.sistema.imobiliario.main.entity.Cliente;
 import com.sistema.imobiliario.main.service.ClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,5 +30,10 @@ public class ClienteController {
     @PostMapping("/salvarCliente")
     public String salvarCliente(@RequestBody Cliente cliente){
         return this.service.salvarCliente(cliente);
+    }
+
+    @DeleteMapping("/deletarCliente")
+    public String deletarCliente(@RequestBody int id){
+        return this.service.deletaCliente(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.sistema.imobiliario.main.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.sistema.imobiliario.main.entity.Cliente;
 import com.sistema.imobiliario.main.repository.ClienteRepository;
@@ -22,9 +23,22 @@ public class ClienteService {
         return this.repositorio.findAll();
     }
 
+    public String deletaCliente(int id){
+        this.repositorio.deleteById(id);
+        return "deletado com sucesso";
+    }
+
     public String salvarCliente(Cliente cliente){
-        this.repositorio.save(cliente);
-        return "sucesso";
+    
+        Optional<Cliente> clienteExistente = this.repositorio.
+        findByEmailAndNome(cliente.getEmail(), cliente.getNome());
+
+        if (!clienteExistente.isPresent()) {
+            this.repositorio.save(cliente);
+            return "sucesso";
+        } else {
+            return "Cliente já cadastrado";
+        }
     }
 
 }
